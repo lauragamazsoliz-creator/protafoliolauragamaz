@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portafolio — Laura Gamaz | IA · CBTIS 144</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a12;
+      --surface: #12121e;
+      --card: #1a1a2e;
+      --accent1: #c084fc;
+      --accent2: #818cf8;
+      --accent3: #38bdf8;
+      --text: #f0f0ff;
+      --muted: #7c7c9a;
+      --border: rgba(192,132,252,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 999; opacity: .4;
+    }
+
+    /* ── GRID BG ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(192,132,252,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(192,132,252,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── HERO ── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: .35;
+      animation: drift 8s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; background: var(--accent1); top: -120px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 400px; height: 400px; background: var(--accent2); bottom: -80px; right: -80px; animation-delay: -3s; }
+    .orb-3 { width: 300px; height: 300px; background: var(--accent3); top: 40%; left: 55%; animation-delay: -5s; }
+
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.07); }
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid var(--border);
+      background: rgba(192,132,252,.08);
+      color: var(--accent1);
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: .45rem 1.1rem;
+      border-radius: 999px;
+      margin-bottom: 1.6rem;
+      backdrop-filter: blur(8px);
+      animation: fadeUp .6s ease both;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      line-height: 1.0;
+      letter-spacing: -.02em;
+      animation: fadeUp .7s .1s ease both;
+    }
+
+    h1 span.name-highlight {
+      background: linear-gradient(135deg, var(--accent1), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      margin-top: 1.2rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      letter-spacing: .04em;
+      animation: fadeUp .7s .2s ease both;
+    }
+
+    .hero-info {
+      margin-top: 2.2rem;
+      display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp .7s .3s ease both;
+    }
+
+    .chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: .5rem 1.2rem;
+      font-size: .82rem;
+      color: var(--accent2);
+      letter-spacing: .06em;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      color: var(--muted); font-size: .75rem; letter-spacing: .1em;
+      animation: fadeUp .7s .6s ease both;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--accent1), transparent);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    main { position: relative; z-index: 1; }
+
+    section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-size: .7rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent1);
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .8rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--accent1);
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media(max-width:640px){ .about-grid{ grid-template-columns:1fr; } }
+
+    .about-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      transition: border-color .3s, transform .3s;
+    }
+    .about-card:hover {
+      border-color: rgba(192,132,252,.45);
+      transform: translateY(-4px);
+    }
+    .about-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      color: var(--accent1);
+      margin-bottom: .7rem;
+    }
+    .about-card p {
+      font-size: .92rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── TOPICS / UNIDADES ── */
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .topic-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.6rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, border-color .3s;
+    }
+    .topic-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(129,140,248,.5);
+    }
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    }
+    .topic-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: rgba(192,132,252,.12);
+      line-height: 1;
+      margin-bottom: .5rem;
+    }
+    .topic-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: .98rem;
+      color: var(--text);
+      margin-bottom: .6rem;
+    }
+    .topic-card p {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent1), var(--accent2), transparent);
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-left: 1.5rem;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent1);
+      box-shadow: 0 0 10px var(--accent1);
+    }
+    .tl-item h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      color: var(--accent2);
+      margin-bottom: .3rem;
+    }
+    .tl-item p {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 0 2rem;
+    }
+
+    /* ── FOOTER / CONTACTO ── */
+    footer {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer h2 {
+      margin-bottom: 1rem;
+    }
+
+    footer p.sub {
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      padding: .75rem 1.6rem;
+      border-radius: 999px;
+      font-size: .9rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .25s, box-shadow .25s;
+      letter-spacing: .03em;
+    }
+    .social-btn:hover { transform: translateY(-3px); }
+
+    .btn-instagram {
+      background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(221,42,123,.3);
+    }
+    .btn-instagram:hover { box-shadow: 0 8px 30px rgba(221,42,123,.5); }
+
+    .btn-facebook {
+      background: #1877f2;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(24,119,242,.3);
+    }
+    .btn-facebook:hover { box-shadow: 0 8px 30px rgba(24,119,242,.5); }
+
+    .btn-icon {
+      width: 20px; height: 20px;
+      fill: currentColor;
+    }
+
+    .footer-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: .3rem;
+    }
+    .footer-meta {
+      font-size: .8rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="badge">Portafolio Digital · 2do Semestre</div>
+  <h1>
+    <span class="name-highlight">Laura Gpe.</span><br>
+    Gamaz Soliz
+  </h1>
+  <p class="subtitle">Cultura Digital &nbsp;·&nbsp; Inteligencia Artificial &nbsp;·&nbsp; Grupo A</p>
+  <div class="hero-info">
+    <span class="chip">CBTIS 144</span>
+    <span class="chip">2do Semestre</span>
+    <span class="chip">Grupo A</span>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</header>
+
+<main>
+
+  <!-- ACERCA DE -->
+  <section>
+    <p class="section-label reveal">Presentación</p>
+    <h2 class="reveal">¿Quién soy?</h2>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <h3>📚 Mi formación</h3>
+        <p>Soy estudiante de 2do semestre en el CBTIS 144, cursando la materia de Cultura Digital con enfoque en Inteligencia Artificial. Exploro cómo la tecnología transforma nuestra vida cotidiana.</p>
+      </div>
+      <div class="about-card reveal">
+        <h3>🤖 Mi interés en la IA</h3>
+        <p>La Inteligencia Artificial me parece fascinante: desde los modelos de lenguaje hasta el aprendizaje automático, estoy aprendiendo cómo estas herramientas están redefiniendo el futuro.</p>
+      </div>
+      <div class="about-card reveal">
+        <h3>💡 Lo que me llevo</h3>
+        <p>Este semestre he desarrollado pensamiento crítico digital, habilidades en herramientas tecnológicas y comprensión del impacto ético y social de la IA en la sociedad.</p>
+      </div>
+      <div class="about-card reveal">
+        <h3>🎯 Mis metas</h3>
+        <p>Profundizar en el mundo de la tecnología, aplicar la IA a problemas reales y continuar desarrollando competencias digitales que me preparen para el futuro profesional.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- TEMAS VISTOS -->
+  <section>
+    <p class="section-label reveal">Contenido del semestre</p>
+    <h2 class="reveal">Temas de Cultura Digital &<br>Inteligencia Artificial</h2>
+    <div class="topics-grid">
+      <div class="topic-card reveal">
+        <div class="topic-num">01</div>
+        <h3>Introducción a la IA</h3>
+        <p>Historia, conceptos básicos y tipos de inteligencia artificial. ¿Qué puede y qué no puede hacer una máquina?</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="topic-num">02</div>
+        <h3>Cultura Digital</h3>
+        <p>Transformación digital en la sociedad. Cómo internet y las tecnologías cambian la comunicación y la cultura.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="topic-num">03</div>
+        <h3>Machine Learning</h3>
+        <p>Aprendizaje automático: cómo las máquinas aprenden de datos sin ser programadas explícitamente para cada tarea.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="topic-num">04</div>
+        <h3>Ética e IA</h3>
+        <p>Dilemas éticos del uso de IA: privacidad, sesgos algorítmicos, responsabilidad y el futuro del trabajo humano.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="topic-num">05</div>
+        <h3>Herramientas de IA</h3>
+        <p>Exploración de herramientas como ChatGPT, Claude, DALL·E y otras plataformas de IA accesibles al público.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="topic-num">06</div>
+        <h3>Ciudadanía Digital</h3>
+        <p>Derechos y responsabilidades en el entorno digital. Identidad, seguridad en línea y huella digital.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- APRENDIZAJES -->
+  <section>
+    <p class="section-label reveal">Reflexión</p>
+    <h2 class="reveal">Mi recorrido este semestre</h2>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <h3>Inicio del semestre</h3>
+        <p>Primeros acercamientos a la cultura digital. Comprendí la diferencia entre datos, información y conocimiento en la era digital.</p>
+      </div>
+      <div class="tl-item">
+        <h3>Explorando la Inteligencia Artificial</h3>
+        <p>Aprendí sobre los diferentes tipos de IA, su historia desde los años 50 hasta los modelos modernos de lenguaje. Experimenté con herramientas reales.</p>
+      </div>
+      <div class="tl-item">
+        <h3>Análisis crítico y ético</h3>
+        <p>Reflexioné sobre los impactos sociales de la IA: desde la automatización del trabajo hasta las implicaciones en la privacidad y los derechos digitales.</p>
+      </div>
+      <div class="tl-item">
+        <h3>Proyectos y aplicación</h3>
+        <p>Desarrollé proyectos prácticos aplicando los conocimientos adquiridos, incluyendo este portafolio digital como evidencia de mi aprendizaje.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER / CONTACTO -->
+<footer>
+  <p class="section-label reveal" style="justify-content:center">Contacto</p>
+  <h2 class="reveal">Encuéntrame en<br>redes sociales</h2>
+  <p class="sub reveal">¿Quieres saber más sobre mi trabajo? ¡Conéctate conmigo!</p>
+
+  <div class="social-links reveal">
+    <a class="social-btn btn-instagram"
+       href="https://www.instagram.com/lau_gamaz?igsh=bGYxZDl2aHU3cXA5"
+       target="_blank" rel="noopener">
+      <svg class="btn-icon" viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.336 3.608 1.311.975.975 1.249 2.242 1.311 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.336 2.633-1.311 3.608-.975.975-2.242 1.249-3.608 1.311-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.336-3.608-1.311C2.499 19.483 2.225 18.216 2.163 16.85 2.105 15.584 2.093 15.204 2.093 12s.012-3.584.07-4.85c.062-1.366.336-2.633 1.311-3.608.975-.975 2.242-1.249 3.608-1.311C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.197.157 3.355.673 2.014 2.014.673 3.355.157 5.197.072 7.052.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.085 1.855.601 3.697 1.942 5.038 1.341 1.341 3.183 1.857 5.038 1.942C8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 1.855-.085 3.697-.601 5.038-1.942 1.341-1.341 1.857-3.183 1.942-5.038C23.986 15.668 24 15.259 24 12c0-3.259-.014-3.668-.072-4.948-.085-1.855-.601-3.697-1.942-5.038C20.645.673 18.803.157 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+      </svg>
+      @lau_gamaz
+    </a>
+
+    <a class="social-btn btn-facebook"
+       href="https://www.facebook.com/share/1ARhKFBtUh/"
+       target="_blank" rel="noopener">
+      <svg class="btn-icon" viewBox="0 0 24 24">
+        <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.022 4.388 11.012 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796v8.437C19.612 23.085 24 18.095 24 12.073z"/>
+      </svg>
+      Facebook
+    </a>
+  </div>
+
+  <p class="footer-name">Laura Guadalupe Gamaz Soliz</p>
+  <p class="footer-meta">Cultura Digital &nbsp;·&nbsp; Inteligencia Artificial &nbsp;·&nbsp; Grupo A &nbsp;·&nbsp; 2do Semestre &nbsp;·&nbsp; CBTIS 144</p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
